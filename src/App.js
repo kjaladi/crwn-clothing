@@ -7,6 +7,7 @@ import SignInAndSignUp from './pages/sign-in-and-sign-up/sign-in-and-sign-up.com
 import { Route, Switch } from 'react-router-dom';
 
 import { auth } from './firebase/firebase.utils';
+import { createUserProfileDocument } from './firebase/firebase.utils';
 
 class App extends React.Component {
 
@@ -21,13 +22,14 @@ class App extends React.Component {
   unsubscribeFromAuth = null;
 
   componentDidMount() {
-    this.unsubscribeFromAuth = auth.onAuthStateChanged(user => {
+    this.unsubscribeFromAuth = auth.onAuthStateChanged( async user => {
+      console.log(user);
       this.setState({
         currentUser: user
       });
+      createUserProfileDocument(user,{});
 
     });
-    console.log(this.unsubscribeFromAuth);
   }
 
   componentWillUnmount() {
@@ -39,7 +41,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <Header />
+        <Header currentUser={this.state.currentUser}/>
         <Switch>
           <Route exact path="/" component={Homepage} />
           <Route path="/shop" component={ShopPage} />
