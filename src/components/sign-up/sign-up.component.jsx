@@ -29,21 +29,28 @@ class SignUp extends React.Component {
     handleSubmit = async event => {
         event.preventDefault();
 
-        const {displayName,email,password,confirmPassword} = this.state;
+        const { displayName, email, password, confirmPassword } = this.state;
 
-        if(password !== confirmPassword) {
+        if (password !== confirmPassword) {
             alert("password's dont match, please enter and confirm your Password again");
             return;
         }
-        const {user} =   await auth.createUserWithEmailAndPassword(email,password);
+        const { user } = await auth.createUserWithEmailAndPassword(email, password);
 
-            try {
-                await createUserProfileDocument(user,{displayName});
+        try {
+            await createUserProfileDocument(user, { displayName });
+            this.setState({
 
-            } catch(error) {
-                console.log(error);
-                alert("Something went wrong by Sign-up, Try again !")
-            }
+                displayName: '',
+                email: '',
+                password: '',
+                confirmPassword: ''
+            });
+
+        } catch (error) {
+            console.log(error);
+            alert("Something went wrong by Sign-up, Try again !")
+        }
 
 
     }
