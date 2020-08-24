@@ -1,13 +1,13 @@
 import React from 'react';
-import {ReactComponent as CartIcon} from '../../assets/shopping-bag.svg';
+import {ReactComponent as CartSvgIcon} from '../../assets/shopping-bag.svg';
 import './cart-icon.styles.scss';
 
 
-const CartComponent = () => (
+const CartIcon = () => (
     <div className="cart-icon">
-        <CartIcon className="shopping-icon"/>
+        <CartSvgIcon className="shopping-icon"/>
         <span className="item-count">0</span>
     </div>
-);
+)
 
-export  default CartComponent;
+export default CartIcon;
