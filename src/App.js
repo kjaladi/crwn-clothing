@@ -9,6 +9,7 @@ import {connect} from 'react-redux';
 import { auth } from './firebase/firebase.utils';
 import { createUserProfileDocument } from './firebase/firebase.utils';
 import setUserReducer from './redux/user/user.actions';
+import {Redirect} from 'react-router-dom';
 
 
 class App extends React.Component {
@@ -16,7 +17,7 @@ class App extends React.Component {
   unsubscribeFromAuth = null;
 
   componentDidMount() {
-
+    console.log("from app.js",this.props);
     const {setCurrentUser} = this.props;
     
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
@@ -53,12 +54,16 @@ class App extends React.Component {
         <Switch>
           <Route exact path="/" component={Homepage} />
           <Route path="/shop" component={ShopPage} />
-          <Route path="/signin" component={SignInAndSignUp} />
+          <Route path="/signin" render={() => this.props.currentUser ? (<Redirect to='/' />) : <SignInAndSignUp /> } />
         </Switch>
       </div>
     );
   }
 }
+
+const mapStateToProps = ({user}) => ({
+  currentUser: user.currentUser
+});
 
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -66,4 +71,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(null,mapDispatchToProps)(App);
+export default connect(mapStateToProps,mapDispatchToProps)(App);
