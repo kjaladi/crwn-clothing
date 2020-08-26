@@ -17,6 +17,11 @@
       flex-direction: column;
       overflow: scroll;
     }
+
+    .empty-message {
+      font-size: 18px;
+      margin: 50px auto;
+    }
   
     button {
     min-width: 165px;
@@ -42,4 +47,6 @@
       }
     }
   }
+
+  
   
