@@ -1,7 +1,7 @@
 import React from 'react';
 import './cart-item.styles.scss';
 
-const CartItem = ({ name, quantity, price, imageUrl }) => {
+const CartItem = ({ name, quantity, price, imageUrl, totalItems }) => {
     console.log("from CartItem", quantity);
     return (
         <div className="cart-item">
@@ -14,5 +14,6 @@ const CartItem = ({ name, quantity, price, imageUrl }) => {
         </div>
     );
 }
+
 
 export default CartItem;
