@@ -1,13 +1,13 @@
-import {cartActionTypes} from './cart.actiontypes';
-import {groupCartItems} from './cart.utils';
+import { cartActionTypes } from './cart.actiontypes';
+import { groupCartItems,decreaseItemQtyByOne } from './cart.utils';
 
 const INIITIAL_STATE = {
     hidden: true,
     cartitems: []
 };
 
-const cartReducer = (state=INIITIAL_STATE,action) => {
-    switch(action.type) {
+const cartReducer = (state = INIITIAL_STATE, action) => {
+    switch (action.type) {
         case cartActionTypes.TOGGLE_HIDDEN:
             return {
                 ...state,
@@ -16,10 +16,20 @@ const cartReducer = (state=INIITIAL_STATE,action) => {
         case cartActionTypes.ADD_ITEM:
             return {
                 ...state,
-                cartitems: groupCartItems(state.cartitems,action.payload)
+                cartitems: groupCartItems(state.cartitems, action.payload)
             }
-         default:
-             return state;
+        case cartActionTypes.REMOVE_ITEM:
+            return {
+                    ...state,
+                    cartitems: state.cartitems.filter(item => item.id !== action.payload.id)
+                }
+        case cartActionTypes.DECREASE_ITEM_BY_ONE:
+            return {
+                ...state,
+                cartitems: decreaseItemQtyByOne(state.cartitems,action.payload)
+            }            
+        default:
+            return state;
     }
 }
 
