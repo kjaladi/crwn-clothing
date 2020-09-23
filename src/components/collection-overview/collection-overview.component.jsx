@@ -1,7 +1,7 @@
 import React from 'react';
 import CollectionPreview from '../collection-preview/collection-preview.component';
 import { connect } from 'react-redux';
-import {selectShopItems} from '../../redux/shop/shop.selectors';
+import {selectCollections} from '../../redux/shop/shop.selectors';
 
 const CollectionOverview = ({collections}) => (
     <div className="collections-overview">                    {
@@ -11,7 +11,7 @@ const CollectionOverview = ({collections}) => (
 )
 
 const mapStateToProps = (state) => ({
-    collections: selectShopItems(state)
+    collections: selectCollections(state)
 })
 
 export default connect(mapStateToProps)(CollectionOverview);
